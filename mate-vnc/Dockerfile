@@ -5,7 +5,7 @@
 # Run:
 #   docker run -d --name=ubuntu-mate -p 5900:5900 tranhuucuong91/ubuntu:mate-vnc
 #
-# Connect to ubuntu-desktop:
+# Connect to ubuntu-mate:
 #     vncviewer ${HOST_IP}:5900
 #
 

@@ -1,25 +1,26 @@
 #
-# Author: Tran Huu Cuong
+# Author: Cuong Tran
 #
-# Build: docker build -t tranhuucuong91/ubuntu:mate-vnc
+# Build: docker build -t cuongtransc/ubuntu:mate-vnc
 # Run:
-#   docker run -d --name=ubuntu-mate -p 5900:5900 tranhuucuong91/ubuntu:mate-vnc
+#   docker run -d --name=ubuntu-mate -p 5900:5900 cuongtransc/ubuntu:mate-vnc
 #
 # Connect to ubuntu-mate:
 #     vncviewer ${HOST_IP}:5900
 #
 
-FROM ubuntu:14.04
-MAINTAINER Tran Huu Cuong "tranhuucuong91@gmail.com"
+# FROM ubuntu:14.04
+FROM ubuntu:16.04
+MAINTAINER Cuong Tran "cuongtransc@gmail.com"
 
-# using apt-cacher-ng proxy for caching deb package
-RUN echo 'Acquire::http::Proxy "http://172.17.0.1:3142/";' > /etc/apt/apt.conf.d/01proxy
-
-ENV REFRESHED_AT 2015-12-09
+ENV REFRESHED_AT 2017-05-01
 
 RUN apt-get update -qq
 
-# make the "en_US.UTF-8" locale
+# Using apt-cacher-ng proxy for caching deb package
+RUN echo 'Acquire::http::Proxy "http://172.17.0.1:3142/";' > /etc/apt/apt.conf.d/01proxy
+
+# Make the "en_US.UTF-8" locale
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y locales \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8

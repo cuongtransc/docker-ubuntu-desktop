@@ -13,7 +13,7 @@
 FROM ubuntu:16.04
 MAINTAINER Cuong Tran "cuongtransc@gmail.com"
 
-ENV REFRESHED_AT 2017-05-01
+ENV REFRESHED_AT 2017-07-01
 
 RUN apt-get update -qq
 
@@ -27,17 +27,17 @@ ENV LANG en_US.utf8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common
 
-# install ubuntu-mate-core
+# Install ubuntu-mate-core
 RUN apt-add-repository -y ppa:ubuntu-mate-dev/ppa \
-    && apt-add-repository -y ppa:ubuntu-mate-dev/trusty-mate \
+    && apt-add-repository -y ppa:ubuntu-mate-dev/xenial-mate \
     && apt-get update -qq
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ubuntu-mate-core
 
-# install vnc server
+# Install vnc server
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tightvncserver expect
 
-# install firefox, vim
+# Install firefox, vim
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y firefox vim
 
 # Define working directory

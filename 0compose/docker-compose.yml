@@ -2,21 +2,46 @@
 # Connect to ubuntu-mate:
 #     vncviewer 127.0.0.1:5900
 
-ubuntu:
-    image: tranhuucuong91/ubuntu:mate-vnc
-    environment:
-        - VNC_PASSWORD=coc@123
-    ports:
-        - "5900:5900"
-    volumes:
-        - data/:/data/
-    hostname: desktop
-    domainname: coclab.lan
-    cpu_shares: 512             # 0.5 CPU
-    mem_limit: 536870912        # 512 MB RAM
-    #memswap_limit: 0           # 0 MB SWAP
-    #privileged: true
-    #restart: always
-    #stdin_open: true
-    tty: true
+version: "2"
+
+services:
+    ubuntu:
+        image: cuongtransc/ubuntu:mate-vnc
+        #image: cuongtransc/ubuntu:lxde-vnc
+        #command: vncserver --SecurityTypes=none
+        environment:
+            - VNC_PASSWORD=qwe321
+        ports:
+            - "5900:5900"
+        volumes:
+            - ./data/:/root/data
+            - ./mongobooster_docker/config:/root/.config/mongobooster
+            - ./mongobooster_docker/ssh-key:/root/.ssh_mongo:ro
+        hostname: desktop
+        domainname: coclab.lan
+        cpu_shares: 512             # 0.5 CPU
+        mem_limit: 2147483648       # 2048 MB RAM
+        memswap_limit: 0           # 0 MB SWAP
+        privileged: true
+        #restart: always
+        #stdin_open: true
+        tty: true
+
+    #ubuntu-mate-spice:
+        #image: cuongtransc/ubuntu:mate-spice
+        ##environment:
+            ##- VNC_PASSWORD=coclab@123
+        #ports:
+            #- "5900:5900"
+        #volumes:
+            #- ./data/:/data/
+        #hostname: desktop
+        #domainname: coclab.lan
+        #cpu_shares: 512             # 0.5 CPU
+        #mem_limit: 2147483648       # 2048 MB RAM
+        #memswap_limit: 0           # 0 MB SWAP
+        ##privileged: true
+        ##restart: always
+        ##stdin_open: true
+        #tty: true
 

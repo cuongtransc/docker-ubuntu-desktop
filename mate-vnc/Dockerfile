@@ -9,11 +9,10 @@
 #     vncviewer ${HOST_IP}:5900
 #
 
-# FROM ubuntu:14.04
 FROM ubuntu:16.04
 MAINTAINER Cuong Tran "cuongtransc@gmail.com"
 
-ENV REFRESHED_AT 2017-07-01
+ENV REFRESHED_AT 2017-09-03
 
 RUN apt-get update -qq
 
@@ -25,7 +24,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y locales \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends software-properties-common
 
 # Install ubuntu-mate-core
 RUN apt-add-repository -y ppa:ubuntu-mate-dev/ppa \
@@ -35,10 +34,10 @@ RUN apt-add-repository -y ppa:ubuntu-mate-dev/ppa \
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ubuntu-mate-core
 
 # Install vnc server
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tightvncserver expect
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tightvncserver expect
 
 # Install firefox, vim
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y firefox vim
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends firefox vim
 
 # Define working directory
 WORKDIR /data
@@ -52,5 +51,6 @@ COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Define default command
-CMD ["vncserver", ":1", "-geometry", "1000x700", "-depth", "24", "-rfbport", "5900"]
+#CMD ["vncserver", ":1", "-geometry", "1000x700", "-depth", "24", "-rfbport", "5900"]
+CMD ["vncserver", ":1", "-geometry", "1366x768", "-depth", "24", "-rfbport", "5900"]
 

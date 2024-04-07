@@ -4,7 +4,7 @@ set -e
 function gen_config() {
 	# Set default VNC_PASSWORD if not exist
     # password is limited by 8 characters
-    : ${VNC_PASSWORD:=coc@123}
+    : ${VNC_PASSWORD:=dev@123}
 
 	PROG=/usr/bin/vncpasswd
 

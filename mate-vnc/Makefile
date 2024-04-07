@@ -1,19 +1,12 @@
-PRIVATE_REGISTRY_URL=ro.lan:5000
+CONTAINER_REGISTRY_URL=cuongtransc
 
-DOCKER_IMAGE=cuongtransc/ubuntu
-VERSION=mate-vnc
+IMAGE_NAME=ubuntu
+IMAGE_VERSION=mate-vnc-20.04
 
 all: build
 
 build:
-	docker build --tag=${DOCKER_IMAGE}:${VERSION} .
+	docker build --tag=${CONTAINER_REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_VERSION} .
 
 push:
-	docker push ${DOCKER_IMAGE}:${VERSION}
-
-build-for-private-registry:
-	docker build --tag=${PRIVATE_REGISTRY_URL}/${DOCKER_IMAGE}:${VERSION} .
-
-push-for-private-registry:
-	docker push ${PRIVATE_REGISTRY_URL}/${DOCKER_IMAGE}:${VERSION}
-
+	docker push ${CONTAINER_REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_VERSION}

@@ -2,46 +2,53 @@
 # Connect to ubuntu-mate:
 #     vncviewer 127.0.0.1:5900
 
-version: "2"
+version: "2.4"
+
+x-default: &default
+    networks:
+        - comp_default
+    cpu_shares: 512
+    mem_limit: 100M
+    # memswap_limit: 0           # 0 MB SWAP
+    # privileged: true
+    restart: always
+    # stdin_open: true
+    # tty: true
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "100M"
+            max-file: "3"
 
 services:
-    ubuntu:
-        image: cuongtransc/ubuntu:mate-vnc
-        #image: cuongtransc/ubuntu:lxde-vnc
+    ubuntu-desktop:
+        <<: *default
+        image: cuongtransc/ubuntu:mate-vnc-20.04
+        # build: .
         #command: vncserver --SecurityTypes=none
+        #command: vncserver :1 -geometry 1000x700 -depth 24 -rfbport 5900
+        command: vncserver :1 -geometry 1366x768 -depth 24 -rfbport 5900
         environment:
-            - VNC_PASSWORD=qwe321
+            - VNC_PASSWORD=omrA0fYZ
+            #- http_proxy=http://172.17.0.1:3142
         ports:
             - "5900:5900"
+            - "2222:22"
+            - "1188:8888"
+            - "1180:80"
+            - "1144:4444"
         volumes:
-            - ./data/:/root/data
-            - ./mongobooster_docker/config:/root/.config/mongobooster
-            - ./mongobooster_docker/ssh-key:/root/.ssh_mongo:ro
+            - ./ssh-data/:/etc/ssh
+            - ./root-data/:/root
+            - ./data/:/data
         hostname: desktop
-        domainname: coclab.lan
-        cpu_shares: 512             # 0.5 CPU
-        mem_limit: 2147483648       # 2048 MB RAM
+        mem_limit: 16G
         memswap_limit: 0           # 0 MB SWAP
         privileged: true
         #restart: always
         #stdin_open: true
         tty: true
 
-    #ubuntu-mate-spice:
-        #image: cuongtransc/ubuntu:mate-spice
-        ##environment:
-            ##- VNC_PASSWORD=coclab@123
-        #ports:
-            #- "5900:5900"
-        #volumes:
-            #- ./data/:/data/
-        #hostname: desktop
-        #domainname: coclab.lan
-        #cpu_shares: 512             # 0.5 CPU
-        #mem_limit: 2147483648       # 2048 MB RAM
-        #memswap_limit: 0           # 0 MB SWAP
-        ##privileged: true
-        ##restart: always
-        ##stdin_open: true
-        #tty: true
-
+networks:
+    comp_default:
+        external: true

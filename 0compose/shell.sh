@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER_NAME=0compose_ubuntu_1
+CONTAINER_NAME=0compose-ubuntu-desktop-1
 
 # check container exists
 docker ps -a | awk '{print $NF}' | grep ${CONTAINER_NAME} &>/dev/null
